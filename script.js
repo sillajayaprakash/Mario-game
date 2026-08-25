@@ -114,3 +114,16 @@ if (obstacleX < -40) {
 
   scoreText.innerHTML = "Score: " + score;
 }
+let marioBox = mario.getBoundingClientRect();
+let obstacleBox = obstacle.getBoundingClientRect();
+
+if (
+  marioBox.right > obstacleBox.left &&
+  marioBox.left < obstacleBox.right &&
+  marioBox.bottom > obstacleBox.top &&
+  marioBox.top < obstacleBox.bottom
+) {
+
+  console.log("Collision!");
+
+}
