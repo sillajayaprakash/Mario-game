@@ -1,18 +1,30 @@
 let mario = document.querySelector(".mario");
+let obstacle = document.querySelector(".obstacle");
+let gameOverBox = document.querySelector(".game-over");
+let button = document.querySelector("button");
+let scoreText = document.querySelector(".score");
 
 let marioX = 50;
+let marioY = 0;
 
-console.log("Mario game started");
+let obstacleX = 800;
 
-let mario = document.querySelector(".mario");
+let isJumping = false;
+let gameRunning = true;
 
-let marioX = 50;
+let score = 0;
 
+
+// Keyboard controls
 document.addEventListener("keydown", function (e) {
+
+  if (!gameRunning) {
+    return;
+  }
 
   if (e.key === "d" || e.key === "ArrowRight") {
 
-    marioX = marioX + 10;
+    marioX += 10;
 
     if (marioX > 750) {
       marioX = 750;
@@ -21,23 +33,36 @@ document.addEventListener("keydown", function (e) {
     mario.style.left = marioX + "px";
   }
 
-});
-if (e.key === "a" || e.key === "ArrowLeft") {
 
-  marioX = marioX - 10;
+  if (e.key === "a" || e.key === "ArrowLeft") {
 
-  if (marioX < 0) {
-    marioX = 0;
+    marioX -= 10;
+
+    if (marioX < 0) {
+      marioX = 0;
+    }
+
+    mario.style.left = marioX + "px";
   }
 
-  mario.style.left = marioX + "px";
-}
-let marioY = 0;
-let isJumping = false;
 
+  if (
+    e.key === " " ||
+    e.key === "w" ||
+    e.key === "ArrowUp"
+  ) {
+
+    jump();
+
+  }
+
+});
+
+
+// Jump
 function jump() {
 
-  if (isJumping === true) {
+  if (isJumping) {
     return;
   }
 
@@ -75,83 +100,57 @@ function jump() {
 
   }, 20);
 }
-if (
-  e.key === " " ||
-  e.key === "w" ||
-  e.key === "ArrowUp"
-) {
-  jump();
-}
-let obstacle = document.querySelector(".obstacle");
 
-let obstacleX = 800;
 
+// Game loop
 setInterval(function () {
 
-  obstacleX -= 5;
-
-  obstacle.style.left = obstacleX + "px";
-
-}, 10);
-setInterval(function () {
+  if (!gameRunning) {
+    return;
+  }
 
   obstacleX -= 5;
 
   if (obstacleX < -40) {
+
     obstacleX = 800;
+
+    score++;
+
+    scoreText.innerHTML = "Score: " + score;
   }
 
   obstacle.style.left = obstacleX + "px";
 
+
+  // Collision
+  let marioBox = mario.getBoundingClientRect();
+  let obstacleBox = obstacle.getBoundingClientRect();
+
+  if (
+    marioBox.right > obstacleBox.left &&
+    marioBox.left < obstacleBox.right &&
+    marioBox.bottom > obstacleBox.top &&
+    marioBox.top < obstacleBox.bottom
+  ) {
+
+    gameOver();
+
+  }
+
 }, 10);
-let score = 0;
-let scoreText = document.querySelector(".score");
-if (obstacleX < -40) {
 
-  obstacleX = 800;
 
-  score++;
-
-  scoreText.innerHTML = "Score: " + score;
-}
-let marioBox = mario.getBoundingClientRect();
-let obstacleBox = obstacle.getBoundingClientRect();
-
-if (
-  marioBox.right > obstacleBox.left &&
-  marioBox.left < obstacleBox.right &&
-  marioBox.bottom > obstacleBox.top &&
-  marioBox.top < obstacleBox.bottom
-) {
-
-  console.log("Collision!");
-
-}
-let gameRunning = true;
-
+// Game Over
 function gameOver() {
 
   gameRunning = false;
 
   gameOverBox.style.display = "flex";
 }
-if (
-  marioBox.right > obstacleBox.left &&
-  marioBox.left < obstacleBox.right &&
-  marioBox.bottom > obstacleBox.top &&
-  marioBox.top < obstacleBox.bottom
-) {
 
-  gameOver();
 
-}
-
-if (gameRunning === false) {
-  return;
-}
-let button = document.querySelector("button");
-let gameOverBox = document.querySelector(".game-over");
-
+// Restart
 function startOver() {
 
   gameRunning = true;
@@ -173,6 +172,9 @@ function startOver() {
   gameOverBox.style.display = "none";
 }
 
+
 button.addEventListener("click", function () {
+
   startOver();
+
 });
