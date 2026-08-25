@@ -32,3 +32,53 @@ if (e.key === "a" || e.key === "ArrowLeft") {
 
   mario.style.left = marioX + "px";
 }
+let marioY = 0;
+let isJumping = false;
+
+function jump() {
+
+  if (isJumping === true) {
+    return;
+  }
+
+  isJumping = true;
+
+  let jumpUp = setInterval(function () {
+
+    marioY += 10;
+
+    mario.style.bottom = marioY + "px";
+
+    if (marioY >= 130) {
+
+      clearInterval(jumpUp);
+
+      let jumpDown = setInterval(function () {
+
+        marioY -= 10;
+
+        mario.style.bottom = marioY + "px";
+
+        if (marioY <= 0) {
+
+          marioY = 0;
+
+          mario.style.bottom = "0px";
+
+          clearInterval(jumpDown);
+
+          isJumping = false;
+        }
+
+      }, 20);
+    }
+
+  }, 20);
+}
+if (
+  e.key === " " ||
+  e.key === "w" ||
+  e.key === "ArrowUp"
+) {
+  jump();
+}
