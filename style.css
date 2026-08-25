@@ -29,3 +29,11 @@ body {
   height: 100%;
   object-fit: cover;
 }
+.obstacle {
+  width: 40px;
+  height: 70px;
+  background-color: brown;
+  position: absolute;
+  left: 800px;
+  bottom: 0;
+}
