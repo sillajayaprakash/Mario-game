@@ -18,13 +18,14 @@ let score = 0;
 // Keyboard controls
 document.addEventListener("keydown", function (e) {
 
-  if (!gameRunning) {
+  if (gameRunning === false) {
     return;
   }
 
+  // Move right
   if (e.key === "d" || e.key === "ArrowRight") {
 
-    marioX += 10;
+    marioX = marioX + 10;
 
     if (marioX > 750) {
       marioX = 750;
@@ -34,9 +35,10 @@ document.addEventListener("keydown", function (e) {
   }
 
 
+  // Move left
   if (e.key === "a" || e.key === "ArrowLeft") {
 
-    marioX -= 10;
+    marioX = marioX - 10;
 
     if (marioX < 0) {
       marioX = 0;
@@ -46,6 +48,7 @@ document.addEventListener("keydown", function (e) {
   }
 
 
+  // Jump
   if (
     e.key === " " ||
     e.key === "w" ||
@@ -59,10 +62,10 @@ document.addEventListener("keydown", function (e) {
 });
 
 
-// Jump
+// Jump function
 function jump() {
 
-  if (isJumping) {
+  if (isJumping === true) {
     return;
   }
 
@@ -70,9 +73,10 @@ function jump() {
 
   let jumpUp = setInterval(function () {
 
-    marioY += 10;
+    marioY = marioY + 10;
 
     mario.style.bottom = marioY + "px";
+
 
     if (marioY >= 130) {
 
@@ -80,9 +84,10 @@ function jump() {
 
       let jumpDown = setInterval(function () {
 
-        marioY -= 10;
+        marioY = marioY - 10;
 
         mario.style.bottom = marioY + "px";
+
 
         if (marioY <= 0) {
 
@@ -93,6 +98,7 @@ function jump() {
           clearInterval(jumpDown);
 
           isJumping = false;
+
         }
 
       }, 20);
@@ -103,14 +109,20 @@ function jump() {
 
 
 // Game loop
-setInterval(function () {
+let gameLoop = setInterval(function () {
 
-  if (!gameRunning) {
+  if (gameRunning === false) {
     return;
   }
 
-  obstacleX -= 5;
 
+  // Move obstacle
+  obstacleX = obstacleX - 5;
+
+  obstacle.style.left = obstacleX + "px";
+
+
+  // Reset obstacle
   if (obstacleX < -40) {
 
     obstacleX = 800;
@@ -120,12 +132,11 @@ setInterval(function () {
     scoreText.innerHTML = "Score: " + score;
   }
 
-  obstacle.style.left = obstacleX + "px";
 
-
-  // Collision
+  // Collision detection
   let marioBox = mario.getBoundingClientRect();
   let obstacleBox = obstacle.getBoundingClientRect();
+
 
   if (
     marioBox.right > obstacleBox.left &&
@@ -147,10 +158,11 @@ function gameOver() {
   gameRunning = false;
 
   gameOverBox.style.display = "flex";
+
 }
 
 
-// Restart
+// Start Over
 function startOver() {
 
   gameRunning = true;
@@ -170,9 +182,11 @@ function startOver() {
   scoreText.innerHTML = "Score: 0";
 
   gameOverBox.style.display = "none";
+
 }
 
 
+// Start Over button
 button.addEventListener("click", function () {
 
   startOver();
