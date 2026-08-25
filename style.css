@@ -7,3 +7,12 @@
 body {
   background: #222;
 }
+.game {
+  width: 800px;
+  height: 400px;
+  background-color: skyblue;
+  margin: 50px auto;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 50px solid green;
+}
