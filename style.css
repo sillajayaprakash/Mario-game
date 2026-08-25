@@ -44,8 +44,10 @@ body {
   position: absolute;
   top: 20px;
   left: 20px;
+  color: #000;
   font-size: 22px;
   font-weight: bold;
+  z-index: 5;
 }
 .game-over {
   position: absolute;
