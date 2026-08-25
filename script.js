@@ -82,3 +82,14 @@ if (
 ) {
   jump();
 }
+let obstacle = document.querySelector(".obstacle");
+
+let obstacleX = 800;
+
+setInterval(function () {
+
+  obstacleX -= 5;
+
+  obstacle.style.left = obstacleX + "px";
+
+}, 10);
