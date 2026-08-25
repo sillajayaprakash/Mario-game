@@ -104,3 +104,13 @@ setInterval(function () {
   obstacle.style.left = obstacleX + "px";
 
 }, 10);
+let score = 0;
+let scoreText = document.querySelector(".score");
+if (obstacleX < -40) {
+
+  obstacleX = 800;
+
+  score++;
+
+  scoreText.innerHTML = "Score: " + score;
+}
