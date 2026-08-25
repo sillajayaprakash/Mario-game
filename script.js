@@ -149,3 +149,30 @@ if (
 if (gameRunning === false) {
   return;
 }
+let button = document.querySelector("button");
+let gameOverBox = document.querySelector(".game-over");
+
+function startOver() {
+
+  gameRunning = true;
+
+  score = 0;
+
+  marioX = 50;
+  marioY = 0;
+
+  obstacleX = 800;
+
+  mario.style.left = "50px";
+  mario.style.bottom = "0px";
+
+  obstacle.style.left = "800px";
+
+  scoreText.innerHTML = "Score: 0";
+
+  gameOverBox.style.display = "none";
+}
+
+button.addEventListener("click", function () {
+  startOver();
+});
