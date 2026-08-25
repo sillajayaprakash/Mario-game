@@ -16,3 +16,16 @@ body {
   overflow: hidden;
   border-bottom: 50px solid green;
 }
+.mario {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 50px;
+  bottom: 0;
+}
+
+.mario img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
