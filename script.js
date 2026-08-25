@@ -93,3 +93,14 @@ setInterval(function () {
   obstacle.style.left = obstacleX + "px";
 
 }, 10);
+setInterval(function () {
+
+  obstacleX -= 5;
+
+  if (obstacleX < -40) {
+    obstacleX = 800;
+  }
+
+  obstacle.style.left = obstacleX + "px";
+
+}, 10);
