@@ -127,3 +127,25 @@ if (
   console.log("Collision!");
 
 }
+let gameRunning = true;
+
+function gameOver() {
+
+  gameRunning = false;
+
+  gameOverBox.style.display = "flex";
+}
+if (
+  marioBox.right > obstacleBox.left &&
+  marioBox.left < obstacleBox.right &&
+  marioBox.bottom > obstacleBox.top &&
+  marioBox.top < obstacleBox.bottom
+) {
+
+  gameOver();
+
+}
+
+if (gameRunning === false) {
+  return;
+}
